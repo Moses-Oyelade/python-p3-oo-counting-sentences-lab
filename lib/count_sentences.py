@@ -5,13 +5,16 @@ class MyString:
         self.value = value
     
     
-    def get_value(self):
-      return self.value
-    def set_value(self):
-      if type(self.value) in (str, float) or self.value == " ":
-        print("The value must be a string.")
+    def set_value(self, value):
+      if isinstance(value, str):
+        self._value = value
       else:
-        return self.value
+        print('The value must be a string.')
+
+    def get_value(self):
+      return self._value
+
+    value = property(get_value, set_value)
     
     def is_sentence(self):
         return self.value.endswith(".")
@@ -21,8 +24,9 @@ class MyString:
         return self.value.endswith("!")
     def count_sentences(self):
       count = 0
-      for letter in self.value:
-        if letter == "." or letter == "?" or letter == "!": count += 1
+      for word in self.value.split():
+        if word.endswith(".") or word.endswith("?") or word.endswith("!"): 
+          count += 1
       return count
               
 
